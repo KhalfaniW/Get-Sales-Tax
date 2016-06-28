@@ -1,0 +1,28 @@
+#!/usr/bin/python
+
+import urllib2
+from bs4 import BeautifulSoup
+import re
+
+
+tax=0
+input_state=raw_input("what is your state\n")
+#extract the tax data from this website I found from searching Bing
+soup = BeautifulSoup(urllib2.urlopen('http://www.salestaxinstitute.com/resources/rates').read(),"lxml")
+
+taxtable =soup.find_all('table')
+
+found=False
+
+for i in xrange(2): #do it for both taxtable[0] and taxtable[1]
+	for states in taxtable[i].find_all('a'):
+			if input_state.lower() in states.get_text().lower():
+				found=True
+				print states.parent.parent.find_all('td')[1].get_text()
+
+if not found:
+	print "state not found in repositry "
+
+
+
+
