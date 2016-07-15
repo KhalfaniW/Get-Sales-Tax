@@ -15,6 +15,7 @@ taxtable =soup.find_all('table')
 found=False
 
 for i in xrange(2): #do it for both taxtable[0] and taxtable[1]
+	#get data from all states
 	for states in taxtable[i].find_all('a'):
 			if input_state.lower() in states.get_text().lower():
 				found=True
